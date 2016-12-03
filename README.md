@@ -1,12 +1,14 @@
 # redux-windowsize
 
 ```javascript
-import windowSize, { listenSize } from 'redux-windowsize'
+import windowSize, { createSizeAction, listenSize } from 'redux-windowsize'
 const reducerIndex = {
   windowSize,
 }
 const reducer = combineReducers(reducerIndex)
 const store = createStore(reducer)
-// Dispatch an action every 100ms when window size is changing.
+// Update redux with current size.
+store.dispatch(createSizeAction(window))
+// Dispatch an action every 100ms when window size changes.
 listenSize(store.dispatch, window, 100)
 ```

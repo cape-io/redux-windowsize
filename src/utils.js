@@ -5,7 +5,9 @@ export const doc = property('document.documentElement')
 export const getHeight = flow(doc, property('clientHeight'))
 export const getWidth = flow(doc, property('clientWidth'))
 
-export const createRemAction = windowObj => setRem(windowObj.getComputedStyle(doc(windowObj)))
+export const createRemAction = windowObj => flow(
+  doc(windowObj), windowObj.getComputedStyle(), property('fontSize'), setRem
+)(windowObj)
 export const createSizeAction = flow(over(getHeight, getWidth), setSizeArr)
 export const createWidthAction = flow(getWidth, setWidth)
 
