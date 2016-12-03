@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "airbnb-base",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
+  "env": {
+    "browser": false
+  },
+  "rules": {
+    "comma-dangle": [2, "always-multiline"],
+    "id-length": [2, {
+      "min": 3,
+      "max": 30,
+      "properties": "never",
+      "exceptions": ["t", "io", "id", "fs", "$", "_"]
+    }],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.spec.js", "**/mock.js"]}],
+    "no-console": 1,
+    "no-alert": 1,
+    "no-trailing-spaces": 2,
+    "semi": [ 2, "never" ]
+  }
+}
