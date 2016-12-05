@@ -1,6 +1,6 @@
-import { cond, constant, debounce, flow, map, over, property, stubTrue } from 'lodash'
+import { cond, constant, debounce, flow, get, map, over, property, stubTrue } from 'lodash'
 import { gte as maxWidth } from 'lodash/fp'
-import { setRem, setSizeArr, setWidth } from './actions'
+import { setRem, setSize, setSizeArr, setHeight, setWidth } from './actions'
 
 export const doc = property('document.documentElement')
 export const getHeight = flow(doc, property('clientHeight'))
@@ -9,6 +9,8 @@ export const getWidth = flow(doc, property('clientWidth'))
 export const createRemAction = windowObj => flow(
   doc, windowObj.getComputedStyle, property('fontSize'), setRem
 )(windowObj)
+
+export const createHeightAction = flow(getHeight, setHeight)
 export const createSizeAction = flow(over(getHeight, getWidth), setSizeArr)
 export const createWidthAction = flow(getWidth, setWidth)
 
@@ -17,9 +19,22 @@ export function createListener(actionCreator) {
     'resize', debounce(() => dispatch(actionCreator(windowObj)), wait)
   )
 }
-// listenSize(dispatch, windowObj, wait = 50)
+// listenSize(dispatch, windowObj, 50)
 export const listenSize = createListener(createSizeAction)
+export const listenHeight = createListener(createHeightAction)
 export const listenWidth = createListener(createWidthAction)
+
+export function listenResize({ dispatch, getState }, windowObj, wait, reducerPath = 'windowSize') {
+  function actionCreator(windowObject) {
+    const state = get(getState(), reducerPath)
+    const height = getHeight(windowObject)
+    const width = getWidth(windowObject)
+    if (state.height === height) return setWidth(width)
+    if (state.width === width) return setHeight(height)
+    return setSize(height, width)
+  }
+  return createListener(actionCreator)(dispatch, windowObj, wait)
+}
 
 export const sizeIdSelector = (biggestId, sizes) => cond(
   map(sizes, ([size, id]) => [maxWidth(size), constant(id)])
