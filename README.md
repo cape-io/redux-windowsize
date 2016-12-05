@@ -23,6 +23,9 @@ listenResize(store, window, 100)
 
 For a full, working example see http://redux-windowsize.cape.io and code https://github.com/cape-io/redux-windowsize-website
 
+
+## API
+
 ## Reducer
 
 The reducer is the default export. The following is the state managed by the reducer.
@@ -37,13 +40,24 @@ const defaultState = {
   widthMax: null, // adjusted any time width changes.
 }
 ```
+### Actions
 
-## API
+* `setSize(height, width)` - Accepts numbers.
+* `setSizeArr([height, width])` - Same as above but accepts a single argument with height, width as an array.
+* `setHeight(height)`
+* `setWidth(width)`
+* `setRem('16px')` First argument sent to `parseFloat` before being dispatched.
+* `reset()` - Brings reducer back to its defaultState.
+* `setId(any)` - If you want to define a single size related value. Maybe it's a string that is unique to a size range.
 
 ### Utility
 
-* `listenResize(store, window, waitMs, reducerPath)` - Dispatch an action every time window size changes. Attaches `resize` eventListener to window.
+* `listenResize(store, window, waitMs, reducerPath)` - Dispatch an action every time window size changes. Attaches `resize` eventListener to window. Will dispatch one of `setSize`, `setWidth`, `setHeight`.
 * `createSizeAction(window)` - Get dimensions from window object and dispatch action.
+* `listenSize(dispatch, window, waitMs)` - Similar to `listenResize` but always dispatches `setSize`. Possibly faster since it doesn't check store state and compare values before the dispatch.
+* `listenHeight(dispatch, window, waitMs)` - If you only care about listening to height changes.
+* `listenWidth(dispatch, window, waitMs)` - If you only care about width changes.
+* `createRemAction(window)` Create a `setRem` action based on result of the documentElement font size.
 
 ### Selectors
 
