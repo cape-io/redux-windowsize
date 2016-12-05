@@ -3,7 +3,7 @@
 ## Install
 
 ```bash
-$ npm i --save lodash-humps
+$ npm i --save redux-windowsize
 ```
 
 ## Usage
