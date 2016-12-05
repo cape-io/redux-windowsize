@@ -39,3 +39,21 @@ const defaultState = {
 ```
 
 ## API
+
+### Utility
+
+* `listenResize(store, window, waitMs, reducerPath)` - Dispatch an action every time window size changes. Attaches `resize` eventListener to window.
+* `createSizeAction(window)` - Get dimensions from window object and dispatch action.
+
+### Selectors
+
+All based off reducer being on reducer key `REDUCER_KEY`.
+
+* `REDUCER_KEY`: 'windowSize'
+* `getWindowSize(state)` returns state.windowSize
+* `getWindowHeight` - Get current height.
+* `getWindowHeightMax` - Get max height.
+* `getWindowWidth` - Get current width.
+* `getWindowWidthMax` - Get max width.
+* `getHeightWidth` - Get height and width as an object. Uses `reselect` to memoize returned obj.
+* `getHeightWidthMax` - Get height, width and max values. Uses `reselect` to memoize returned obj.
