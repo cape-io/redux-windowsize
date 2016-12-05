@@ -1,4 +1,5 @@
-import { debounce, flow, over, property } from 'lodash'
+import { cond, constant, debounce, flow, map, over, property, stubTrue } from 'lodash'
+import { gte as maxWidth } from 'lodash/fp'
 import { setRem, setSizeArr, setWidth } from './actions'
 
 export const doc = property('document.documentElement')
@@ -19,3 +20,8 @@ export function createListener(actionCreator) {
 // listenSize(dispatch, windowObj, wait = 50)
 export const listenSize = createListener(createSizeAction)
 export const listenWidth = createListener(createWidthAction)
+
+export const sizeIdSelector = (biggestId, sizes) => cond(
+  map(sizes, ([size, id]) => [maxWidth(size), constant(id)])
+  .concat([[stubTrue, constant(biggestId)]])
+)
