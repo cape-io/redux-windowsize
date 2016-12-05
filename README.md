@@ -9,9 +9,9 @@ $ npm i --save lodash-humps
 ## Usage
 
 ```javascript
-import windowSize, { createSizeAction, listenResize } from 'redux-windowsize'
-const reducerIndex = {
-  windowSize,
+import windowSize, { createSizeAction, listenResize, REDUCER_KEY } from 'redux-windowsize'
+const reducers = {
+  [REDUCER_KEY], windowSize,
 }
 const reducer = combineReducers(reducerIndex)
 const store = createStore(reducer)
