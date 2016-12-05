@@ -9,7 +9,7 @@ $ npm i --save redux-windowsize
 ## Usage
 
 ```javascript
-import windowSize, { createSizeAction, listenResize, REDUCER_KEY } from 'redux-windowsize'
+import windowSize, { createRemAction, createSizeAction, listenResize, REDUCER_KEY } from 'redux-windowsize'
 const reducers = {
   [REDUCER_KEY], windowSize,
 }
@@ -17,6 +17,7 @@ const reducer = combineReducers(reducerIndex)
 const store = createStore(reducer)
 // Update redux with current size.
 store.dispatch(createSizeAction(window))
+store.dispatch(createRemAction(window))
 // Dispatch an action every 100ms when window size changes.
 listenResize(store, window, 100)
 ```
@@ -46,7 +47,7 @@ const defaultState = {
 * `setSizeArr([height, width])` - Same as above but accepts a single argument with height, width as an array.
 * `setHeight(height)`
 * `setWidth(width)`
-* `setRem('16px')` First argument sent to `parseFloat` before being dispatched.
+* `setRem('16px')` First argument sent to `parseFloat`.
 * `reset()` - Brings reducer back to its defaultState.
 * `setId(any)` - If you want to define a single size related value. Maybe it's a string that is unique to a size range.
 
