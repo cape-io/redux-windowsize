@@ -1,7 +1,7 @@
-import { eq } from 'lodash'
+import { constant, eq } from 'lodash'
 import { createReducer } from 'cape-redux'
 import { setKey } from 'cape-lodash'
-import { SET_HEIGHT, SET_ID, SET_REM, SET_SIZE, SET_WIDTH } from './actions'
+import { SET_HEIGHT, SET_ID, SET_REM, SET_SIZE, SET_WIDTH, RESET } from './actions'
 
 export const defaultState = {
   height: null,
@@ -30,5 +30,6 @@ export const reducers = {
   [SET_REM]: setKey('rem'),
   [SET_SIZE]: sizeReducer,
   [SET_WIDTH]: widthReducer,
+  [RESET]: constant(defaultState),
 }
 export default createReducer(reducers, defaultState)

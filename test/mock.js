@@ -1,46 +1,40 @@
-import immutable from 'seamless-immutable'
-export const user = {
-  type: 'Person',
-  id: 'anon',
-  name: 'foo',
-  gender: 'bar',
+import { flow, nthArg } from 'lodash'
+import { combineReducers, createStore } from 'redux'
+import reducer, { REDUCER_KEY } from '../src'
+
+export const store = createStore(combineReducers({ [REDUCER_KEY]: reducer }))
+
+const sillyReducer = (state = { count: 0 }, { type }) => {
+  if (type === 'update') return ({ count: state.count + 1 })
+  return state
 }
-export const user2 = {
-  type: 'Person',
-  id: 'auth',
-  name: 'Auth User',
-}
-export const props = {
-  item: { id: 'bar' },
-  title: 'strawberry',
-}
-export const collection = {
-  a1: {
-    id: 'a1',
-    type: 'Sample',
-    title: 'Rubish',
-    creator: {
-      anon: user,
-      auth: user2,
-    },
-  },
-  a2: {
-    id: 'a2',
-    type: 'Sample',
-    creator: {
-      auth: user2,
-    },
-  },
-  a3: {
-    id: 'a3',
-    type: 'Sample',
-    title: 'Favorites',
-    creator: {
-      anon: user,
+const helpMockWindowStore = createStore(sillyReducer)
+
+export const winObj1 = {
+  addEventListener: flow(nthArg(1), helpMockWindowStore.subscribe),
+  document: {
+    documentElement: {
+      bodyFontSize: '16px',
+      clientHeight: 100,
+      clientWidth: 200,
     },
   },
 }
-export const state = immutable({
-  collection,
-  user,
-})
+export const winObj2 = {
+  getComputedStyle: ({ bodyFontSize }) => ({ fontSize: bodyFontSize }),
+}
+export const winObj = { ...winObj1, ...winObj2 }
+
+export function mockSizeChange(height, width) {
+  winObj.document.documentElement.clientHeight = height
+  winObj.document.documentElement.clientWidth = width
+  return helpMockWindowStore.dispatch({ type: 'update' })
+}
+export function mockHeightChange(height) {
+  winObj.document.documentElement.clientHeight = height
+  return helpMockWindowStore.dispatch({ type: 'update' })
+}
+export function mockWidthChange(width) {
+  winObj.document.documentElement.clientWidth = width
+  return helpMockWindowStore.dispatch({ type: 'update' })
+}

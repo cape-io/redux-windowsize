@@ -1,6 +1,6 @@
 import test from 'tape'
 import { isFunction } from 'lodash'
-import reducer, { setHeight, setId, setRem, setSize, setWidth } from '../src'
+import reducer, { setHeight, setId, setRem, setSize, setWidth, reset } from '../src'
 import { defaultState, setDimension } from '../src/reducer'
 
 test('setDimension', (t) => {
@@ -17,7 +17,7 @@ test('setDimension', (t) => {
   t.end()
 })
 test('setHeight', (t) => {
-  t.equal(reducer(undefined, setHeight('10')).height, 10)
+  t.equal(reducer(undefined, setHeight(10)).height, 10)
   t.end()
 })
 test('setId', (t) => {
@@ -36,6 +36,12 @@ test('setSize', (t) => {
   t.end()
 })
 test('setWidth', (t) => {
-  t.equal(reducer(undefined, setWidth('1200')).width, 1200)
+  t.equal(reducer(undefined, setWidth('1200')).width, '1200')
+  t.end()
+})
+test('reset', (t) => {
+  t.equal(reducer({}, reset()), defaultState)
+  t.equal(reducer(undefined, reset()), defaultState)
+  t.equal(reducer({ ...defaultState }, reset()), defaultState)
   t.end()
 })

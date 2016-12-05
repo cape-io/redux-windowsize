@@ -5,11 +5,11 @@ import { setRem, setSize, setSizeArr, setHeight, setWidth } from './actions'
 export const doc = property('document.documentElement')
 export const getHeight = flow(doc, property('clientHeight'))
 export const getWidth = flow(doc, property('clientWidth'))
-
-export const createRemAction = windowObj => flow(
-  doc, windowObj.getComputedStyle, property('fontSize'), setRem
+export const getRem = windowObj => flow(
+  doc, windowObj.getComputedStyle, property('fontSize')
 )(windowObj)
 
+export const createRemAction = flow(getRem, setRem)
 export const createHeightAction = flow(getHeight, setHeight)
 export const createSizeAction = flow(over(getHeight, getWidth), setSizeArr)
 export const createWidthAction = flow(getWidth, setWidth)

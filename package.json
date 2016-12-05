@@ -1,6 +1,6 @@
 {
   "name": "redux-windowsize",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A simple redux reducer and selectors for window size.",
   "main": "lib/index.js",
   "author": "Kai Curry <kai@cape.io> (http://www.cape.io/)",
@@ -16,8 +16,9 @@
   "license": "ISC",
   "dependencies": {
     "cape-lodash": "^1.8.0",
-    "cape-redux": "^3.0.0",
-    "lodash": "^4.17.2"
+    "cape-redux": "^3.1.0",
+    "lodash": "^4.17.2",
+    "reselect": "^2.5.4"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
@@ -30,6 +31,7 @@
     "eslint": "^3.11.1",
     "eslint-config-airbnb-base": "^10.0.1",
     "eslint-plugin-import": "^2.2.0",
+    "redux": "^3.6.0",
     "tape": "^4.6.2"
   }
 }
