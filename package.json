@@ -1,6 +1,7 @@
 {
   "name": "redux-windowsize",
   "version": "1.3.1",
+  "homepage": "http://redux-windowsize.cape.io",
   "description": "A simple redux reducer and selectors for window size.",
   "main": "lib/index.js",
   "author": "Kai Curry <kai@cape.io> (http://www.cape.io/)",
