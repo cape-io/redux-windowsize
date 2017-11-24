@@ -822,9 +822,9 @@ cape-lodash@^1.8.0:
   dependencies:
     lodash "^4.17.2"
 
-cape-redux@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/cape-redux/-/cape-redux-3.1.0.tgz#ae657a5bdc1c5deba51d1e5912aa6ad98ee73a5e"
+cape-redux@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/cape-redux/-/cape-redux-3.2.0.tgz#2df3a5864ad12d2faaff5b56f5ec9f297f32508a"
   dependencies:
     cape-lodash "^1.8.0"
     lodash "^4.17.2"
